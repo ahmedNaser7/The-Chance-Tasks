@@ -1,4 +1,4 @@
-package suduko
+package sudoku
 
 fun main() {
 

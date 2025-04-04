@@ -1,4 +1,4 @@
-package suduko
+package sudoku
 
 /**
  * Sudoku checker function that determines whether a given Sudoku puzzle is valid or not.
