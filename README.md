@@ -5,7 +5,7 @@
     Each task includes an implementation, Testcases, and a flowchart for better understanding.
 ## Tasks
 ### Sudoku Game
-- [Sudoku Game File ](src/suduko/SudokuGame.kt)
+- [Sudoku Game File ](src/sudoku/SudokuGame.kt)
 - [Flowchart](https://drive.google.com/file/d/1inZqC3nGdqUIdfNTkmfzKoTvEiOzcQcn/view?usp=sharing)
 ### Ip Checker
 - [IP Checker File](src/ipv4/Ipv4Checker.kt)
