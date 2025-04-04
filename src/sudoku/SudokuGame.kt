@@ -75,16 +75,6 @@ fun checkColumnValidation(matrix: List<List<String>>): Boolean {
     return true
 }
 
-fun main(){
-    val digitOnlyMatrix = listOf(
-        listOf("1", "2", "3", "4"),
-        listOf("4", "3", "2", "1"),
-        listOf("2", "1", "4", "3"),
-        listOf("3", "4", "1", "2")
-    )
-
-    println(checkSubGridValidation(digitOnlyMatrix,2))
-}
 //  grid[index]
 //                .subList(fromIndex = firstIndex, toIndex = lastIndex)
 //                .forEach { if (it != "-") subGridListForDuplication.add(it) else counterOfEmpty++ }
