@@ -7,6 +7,8 @@ package sudoku
  * @return True once is valid
  * @sample isValidSudokuSample
  */
+
+// function flaten
 fun isValidSudoku(matrix: List<List<String>>): Boolean {
     if (matrix.isEmpty()) return false
     val subGridSize = calculateSizeOfSubGrid(matrix.size)
@@ -73,31 +75,56 @@ fun checkColumnValidation(matrix: List<List<String>>): Boolean {
     return true
 }
 
+fun main(){
+    val digitOnlyMatrix = listOf(
+        listOf("1", "2", "3", "4"),
+        listOf("4", "3", "2", "1"),
+        listOf("2", "1", "4", "3"),
+        listOf("3", "4", "1", "2")
+    )
+
+    println(checkSubGridValidation(digitOnlyMatrix,2))
+}
+//  grid[index]
+//                .subList(fromIndex = firstIndex, toIndex = lastIndex)
+//                .forEach { if (it != "-") subGridListForDuplication.add(it) else counterOfEmpty++ }
+
 fun checkSubGridValidation(grid: List<List<String>>, subGridSize: Int): Boolean {
-    val subGridList = mutableListOf<String>()
+    val subGridListForDuplication = mutableListOf<String>()
     var firstIndex = 0
     var lastIndex = subGridSize
-    var sizeOfGrid = subGridSize
+    var sizeOfGridForLoop = subGridSize
     var counterOfEmpty = 0
-    GridLoop@ while (sizeOfGrid > 0) {
-        var counterOfNumberOfSubGrids = 0
+
+    GridLoop@ while (sizeOfGridForLoop > 0) {
+        
+        var counterTheNumberOfSubGrids = 0
+        
         subGridLoop@ for (index in grid.indices) {
-            grid[index].subList(fromIndex = firstIndex, toIndex = lastIndex)
-                .forEach { if (it != "-") subGridList.add(it) else counterOfEmpty++ }
-            counterOfNumberOfSubGrids++
-            if (counterOfNumberOfSubGrids == subGridSize) {
-                val checkDuplication = subGridList.toSet()
-                if (checkDuplication.size < subGridList.size - counterOfEmpty) {
+
+            if (grid[index].any { it != "-" })
+            subGridListForDuplication+=grid[index].subList(fromIndex = firstIndex, toIndex = lastIndex)
+            else
+            counterOfEmpty++
+
+            counterTheNumberOfSubGrids++
+
+            if (counterTheNumberOfSubGrids == subGridSize) {
+
+                val checkDuplication = subGridListForDuplication.toSet()
+
+                if (checkDuplication.size < subGridListForDuplication.size - counterOfEmpty)
                     return false
-                }
-                subGridList.clear()
-                counterOfNumberOfSubGrids = 0
+
+                subGridListForDuplication.clear()
+                counterTheNumberOfSubGrids = 0
                 counterOfEmpty = 0
             }
         }
-        firstIndex += subGridSize
-        lastIndex += subGridSize
-        sizeOfGrid--
+
+        firstIndex += subGridSize //2
+        lastIndex += subGridSize // 4
+        sizeOfGridForLoop--
     }
     return true
 }
