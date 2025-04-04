@@ -9,6 +9,7 @@ package ipv4
  */
 
 fun isValidIpAddressVersion4(ip: String): Boolean {
+    if (ip.isEmpty()) return false
     if (!checkIpAddressNotContainSpecialCharacterValidation(ip)) return false
     if (!checkSegmentsInRangeValidation(ip)) return false
     if (!checkNumberOfSegmentsValidation(ip)) return false
@@ -35,11 +36,9 @@ fun checkSegmentsLeadingByZeroValidation(ip: String):Boolean {
     val numbers = ip.split(".")
     numbers.forEach { number ->
         if (number.length>=2) {
-            println(number)
             val checkZeroAtStartOfSegment = number[0] == '0'
             if (checkZeroAtStartOfSegment)
                 return true
-
         }
     }
     return false
