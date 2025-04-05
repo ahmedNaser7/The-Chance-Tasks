@@ -8,7 +8,6 @@ package sudoku
  * @sample isValidSudokuSample
  */
 
-// function flaten
 fun isValidSudoku(matrix: List<List<String>>): Boolean {
     if (matrix.isEmpty()) return false
     val subGridSize = calculateSizeOfSubGrid(matrix.size)
@@ -54,29 +53,25 @@ fun checkRowValidation(matrix: List<List<String>>): Boolean {
 }
 
 fun checkColumnValidation(matrix: List<List<String>>): Boolean {
-    val columnList = mutableListOf<String>()
+    val columnListForCheckDuplication = mutableListOf<String>()
     var counterOfEmpty = 0
     for (row in matrix.indices) {
         for (column in matrix.indices) {
             if (matrix[column][row] != "-") {
-                columnList.add(matrix[column][row])
+                columnListForCheckDuplication+=matrix[column][row]
             } else {
                 counterOfEmpty++
             }
         }
-        if (columnList.toSet().size < columnList.size - counterOfEmpty)
+        if (columnListForCheckDuplication.toSet().size < columnListForCheckDuplication.size - counterOfEmpty)
             return false
         else {
-            columnList.clear()
+            columnListForCheckDuplication.clear()
             counterOfEmpty = 0
         }
     }
     return true
 }
-
-//  grid[index]
-//                .subList(fromIndex = firstIndex, toIndex = lastIndex)
-//                .forEach { if (it != "-") subGridListForDuplication.add(it) else counterOfEmpty++ }
 
 fun checkSubGridValidation(grid: List<List<String>>, subGridSize: Int): Boolean {
     val subGridListForDuplication = mutableListOf<String>()
@@ -89,12 +84,12 @@ fun checkSubGridValidation(grid: List<List<String>>, subGridSize: Int): Boolean 
         
         var counterTheNumberOfSubGrids = 0
         
-        subGridLoop@ for (index in grid.indices) {
+        subGridLoop@ for (row in grid.indices) {
 
-            if (grid[index].any { it != "-" })
-            subGridListForDuplication+=grid[index].subList(fromIndex = firstIndex, toIndex = lastIndex)
+            if (grid[row].contains("-"))
+                counterOfEmpty++
             else
-            counterOfEmpty++
+            subGridListForDuplication+=grid[row].subList(fromIndex = firstIndex, toIndex = lastIndex)
 
             counterTheNumberOfSubGrids++
 
@@ -102,7 +97,7 @@ fun checkSubGridValidation(grid: List<List<String>>, subGridSize: Int): Boolean 
 
                 val checkDuplication = subGridListForDuplication.toSet()
 
-                if (checkDuplication.size < subGridListForDuplication.size - counterOfEmpty)
+                if (checkDuplication.size < subGridListForDuplication.size-counterOfEmpty )
                     return false
 
                 subGridListForDuplication.clear()
@@ -111,8 +106,8 @@ fun checkSubGridValidation(grid: List<List<String>>, subGridSize: Int): Boolean 
             }
         }
 
-        firstIndex += subGridSize //2
-        lastIndex += subGridSize // 4
+        firstIndex += subGridSize
+        lastIndex += subGridSize
         sizeOfGridForLoop--
     }
     return true
