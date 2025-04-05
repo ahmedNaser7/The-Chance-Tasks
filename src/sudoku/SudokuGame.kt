@@ -47,9 +47,8 @@ fun checkRangeOfNumbers(matrix: List<List<String>>, subGridSize: Int): Boolean {
 
 fun checkRowValidation(matrix: List<List<String>>): Boolean {
     matrix.forEach { row ->
-        val newRow = row.filter { it != "-" }
-        val checkDuplicationOfRow = newRow.toSet()
-        if (checkDuplicationOfRow.size < newRow.size) return false
+        val newRow = row.filter { it != "-" }.distinct()
+        if (row.size > newRow.size) return false
     }
     return true
 }
